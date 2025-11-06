@@ -542,6 +542,38 @@ jobs:
           # 移除构建审查
           sed -i 's/check_defconfig//' ./common/build.config.gki
 
+      - name: Fix KernelSU Build Issues
+        run: |
+          cd kernel_workspace/kernel_platform
+          
+          echo "🔧 综合修复KernelSU构建问题..."
+          
+          # 1. 修复配置
+          CONFIG_FILE=./common/arch/arm64/configs/gki_defconfig
+          echo "修复KernelSU配置..."
+          sed -i '/CONFIG_KSU/d' "$CONFIG_FILE"
+          echo "CONFIG_KSU=y" >> "$CONFIG_FILE"
+          echo "CONFIG_KSU_DEBUG=n" >> "$CONFIG_FILE"
+          
+          # 2. 检查KernelSU核心文件
+          cd common/drivers/kernelsu
+          echo "检查核心文件..."
+          if [ ! -f core_hook.o ] && [ -f core_hook.c ]; then
+            echo "编译core_hook.c..."
+            # 尝试单独编译来检查错误
+            gcc -E core_hook.c > /dev/null 2>&1 && echo "core_hook.c 预处理成功" || echo "core_hook.c 有语法错误"
+          fi
+          
+          # 3. 确保Makefile正确
+          if [ -f Makefile ]; then
+            echo "确保所有核心文件都在Makefile中..."
+            echo "obj-y += core_hook.o ksu.o allowlist.o selinux/" > Makefile.tmp
+            grep -v "obj-y" Makefile >> Makefile.tmp 2>/dev/null || true
+            mv Makefile.tmp Makefile
+          fi
+          
+          echo "✅ 修复完成"
+          
       # Custom kernel build time, without adding #1 SMP PREEMPT 自定义内核构建时间，不要加入#1 SMP PREEMPT
       - name: Custom BUILD_TIME
         shell: bash
