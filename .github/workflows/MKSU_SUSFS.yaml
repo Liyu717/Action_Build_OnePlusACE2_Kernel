@@ -419,16 +419,13 @@ jobs:
           FILE: ${{ github.event.inputs.FILE }}
         run: |
           cd kernel_workspace
-          cd ./common
           GKI_V="${{ env.KANDROID_VERSION }}-${{ env.KERNEL_VERSION }}"
           SUBLEVEL=$(grep '^SUBLEVEL *=' Makefile | head -n1 | cut -d= -f2 | tr -d ' ')
-
           KERNEL_VERSION="${{ env.KERNEL_VERSION }}"
           TKERNEL_VERSION="${{ env.TKERNEL_VERSION }}"
           TRUSTY_EXISTS="false"
-
-            echo "trusty_exists=$TRUSTY_EXISTS" >> $GITHUB_OUTPUT
-
+              echo "trusty_exists=$TRUSTY_EXISTS" >> $GITHUB_OUTPUT
+              
           # Fake Patch to fix failures
           fake_patched=0
           if [ "$GKI_V" = "android12-5.10" ] || [ "$GKI_V" = "android13-5.15" ]; then
