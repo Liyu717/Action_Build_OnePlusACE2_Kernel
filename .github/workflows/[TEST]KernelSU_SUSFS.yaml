@@ -22,17 +22,6 @@ on:
         description: "是否添加 SUSFS 支持？"
         required: true
         default: true
-      kernelsu_branch:
-        type: choice
-        description: "KernelSU版本（当版本大更新时需要自选旧版）"
-        required: true
-        default: "main"
-        options:
-          - v0.9.5
-          - v1.0.5
-          - v2.0.0
-          - v2.1.0 
-          - main
 jobs:
   build:
     name: ${{ github.event.inputs.LSM == 'true' && ' [LSM]' || '' }}For OnePlus_ACE2_KernelSU_${{ github.event.inputs.SUSFS == 'true' && ' [SUSFS]' || '' }}
@@ -233,7 +222,7 @@ jobs:
       - name: Add KernelSU
         run: |
           cd kernel_workspace/kernel_platform
-          curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -s ${{ github.event.inputs.kernelsu_branch }}
+          curl -LSs "https://raw.githubusercontent.com/rsuntk/KernelSU/main/kernel/setup.sh" | bash -s main
      
       
       - name: Add SUSFS Support with Patches
@@ -294,6 +283,8 @@ jobs:
           CONFIG_FILE=./common/arch/arm64/configs/gki_defconfig
           KERNEL_VERSION="5.10"
           echo "CONFIG_KSU=y" >> "$CONFIG_FILE"
+          echo "CONFIG_KPROBES=y" >> "$CONFIG_FILE"
+          echo "CONFIG_KSU_MANUAL_HOOK is not set" >> "$CONFIG_FILE"
           
           # 如果启用 SUSFS，添加配置
           if [ "${{ github.event.inputs.SUSFS }}" = "true" ]; then
