@@ -1,4 +1,4 @@
-name: (NO SUSFS!）Build OPACE2_MKSU
+name: (NO SUSFS!)Build OPACE2_MKSU
 on:
   workflow_dispatch:
     inputs:
