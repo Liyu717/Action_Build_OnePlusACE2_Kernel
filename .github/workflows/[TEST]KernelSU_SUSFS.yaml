@@ -22,16 +22,6 @@ on:
         description: "是否添加 SUSFS 支持？"
         required: true
         default: true
-env:
-CPU: "sm8475"
-ANDROID_VERSION: "15.0.0"
-ANDROID_SHORT_VERSION: "15"
-CPUD: "waipio" 
-BUILD_METHOD: "gki"
-KANDROID_VERSION: "android12"
-KERNEL_VERSION: "5.10"
-TKERNEL_VERSION: "5.10.226"
-
 jobs:
   build:
     name: ${{ github.event.inputs.LSM == 'true' && ' [LSM]' || '' }}${{ github.event.inputs.SUSFS == 'true' && ' [SUSFS]' || '' }}For ${{ github.event.inputs.FILE }} ${{ github.event.inputs.SUFFIX }}
@@ -76,8 +66,8 @@ jobs:
 
       - name: Configure Git
         run: |
-          git config --global user.name "Numbersf"
-          git config --global user.email "263623064@qq.com"
+          git config --global user.name "zhiyi0314"
+          git config --global user.email "1472096505@qq.com"
 
       - name: Install Dependencies + APTC
         uses: awalsh128/cache-apt-pkgs-action@latest 
