@@ -235,9 +235,9 @@ jobs:
           cd kernel_platform
           
           echo ">>> 覆盖 SUSFS fs 和头文件..."
-          cp kernel_workspace/susfs4ksu/kernel_patches/50_add_susfs_in_android12-5.10.patch ./common/
-          cp -r kernel_workspace/susfs4ksu/kernel_patches/fs/* ./common/fs/
-          cp -r kernel_workspace/susfs4ksu/kernel_patches/include/linux/* ./common/include/linux/
+          cp ../susfs4ksu/kernel_patches/50_add_susfs_in_android12-5.10.patch ./common/
+          cp -r ../susfs4ksu/kernel_patches/fs/* ./common/fs/
+          cp -r ../susfs4ksu/kernel_patches/include/linux/* ./common/include/linux/
 
           cd ./KernelSU-Next
           susfs_version=$(grep '#define SUSFS_VERSION' ../common/include/linux/susfs.h | awk -F'"' '{print $2}')
