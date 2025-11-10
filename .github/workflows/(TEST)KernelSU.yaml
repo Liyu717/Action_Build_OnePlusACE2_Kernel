@@ -238,11 +238,11 @@ jobs:
           cd kernel_platform
           
           echo ">>> 覆盖 SUSFS fs 和头文件..."
-          cp ../../susfs4ksu/kernel_patches/50_add_susfs_in_android12-5.10.patch ./common/
+          cp ../../susfs4ksu/kernel_patches/50_add_susfs_in_gki-android12-5.10.patch ./common/
           cp -r ../../susfs4ksu/kernel_patches/fs/* ./common/fs/
           cp -r ../../susfs4ksu/kernel_patches/include/linux/* ./common/include/linux/
 
-          cd KernelSU
+          cd common
           echo ">>> 应用 SUSFS 主补丁..."
           patch -p1 --forward < ../../susfs4ksu/kernel_patches/50_add_susfs_in_gki-android12-5.10.patch || true
 
