@@ -243,11 +243,10 @@ jobs:
           cp -r ../susfs4ksu/kernel_patches/fs/* ./common/fs/
           cp -r ../susfs4ksu/kernel_patches/include/linux/* ./common/include/linux/
           cp ../susfs4ksu/kernel_patches/KernelSU/10_enable_susfs_for_ksu.patch ./KernelSU/
-
+          cp ../kernel_patches/mksu/fix_core_hook.c.patch ./KernelSU/
           cd common
           echo ">>> 应用 SUSFS 主补丁..."
           patch -p1 --forward < ../../susfs4ksu/kernel_patches/50_add_susfs_in_gki-android12-5.10.patch || true
-          pacth -p1 --forward < ../../kernel_patches/mksu/fix_core_hook.c.patch || true
           
           if grep -qxF $'\t\tgoto show_pad;' ./fs/proc/task_mmu.c; then
             echo "vma_pages Line found. Revert Fake Patching!"
@@ -256,6 +255,7 @@ jobs:
 
           cd ../KernelSU
           patch -p1 < 10_enable_susfs_for_ksu.patch || true 
+          pacth -p1 --forward < ../../kernel_patches/mksu/fix_core_hook.c.patch || true
           
       - name: Add Configuration Settings
         run: |
