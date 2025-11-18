@@ -1,4 +1,4 @@
-name: (TEST SUSFS)Build OPACE2_KernelSU
+name: Build OPACE2_KernelSU-SUSFS
 on:
   workflow_dispatch:
     inputs:
@@ -261,7 +261,6 @@ jobs:
           CONFIG_FILE=./common/arch/arm64/configs/gki_defconfig
           KERNEL_VERSION="5.10"
           echo "CONFIG_KSU=y" >> "$CONFIG_FILE"
-          if [ "${{ github.event.inputs.SUSFS }}" = "true" ]; then
           echo "CONFIG_KPROBES=y" >> "$CONFIG_FILE"
           echo "CONFIG_HAVE_KPROBES=y" >> "$CONFIG_FILE"
           echo "CONFIG_KPROBE_EVENTS=y" >> "$CONFIG_FILE"
