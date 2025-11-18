@@ -2,9 +2,9 @@
 Forked by [Action by Numbersf](https://github.com/Numbersf/Action-Build) 
 ## 当前状态:
 - [x] KSU
-- [x] KSU-SUSFS
+- [ ] KSU-SUSFS
 - [x] MKSU
-- [X] MKSU-SUSFS
+- [ ] MKSU-SUSFS
 - [x] SukiSU-SUSFS
 - [x] KSUN-SUSFS
 ## 可选功能:
